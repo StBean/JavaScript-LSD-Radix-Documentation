@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset = "utf-8">
+	<title>Radix Sort LSD page 6</title>
+<link rel ="stylesheet" type = "text/css" href = "css/stylesheet.css"/>
+</head>
+<body>
+	<div class = "container">
+        <header class="top-section">
+            <div class = "bigtxt">Creating an LSD Radix Sort with <span style="color:#69c623">JavaScript</span>
+            </div>
+        </header>
+        <div class = "default">
+            <p class = "medtxt">Section B2&nbsp;<i>-&nbsp;<span font style="font-size:18px;">Final Dequeue Operation and Sorted Result</span></i></p>
+            <p>Lines 48 - 50 of the radix code are shown below. We have re-initialized also re-initialized
+                digIndex back to an empty array at the beginning of Block 2 of the radix function. Just as was 
+                done in Block 1, we will again push the new dataStore.length values from the second enqueue which
+                is based on the 10's digit.
+            </p>
+            <div class = "block1">      
+                <div class = "code">
+<pre>
+48
+49
+50
+</pre>
+                </div>
+                <div class = "code">
+<pre>
+    for(<i>var</i> i = 0; i < bin.length; i++){
+        digIndex.push(bin[i].dataStore.length);
+    };
+</pre>
+                </div>
+            </div>
+            <p style = "text-indent:100px">digIndex = [ 1, 1, 2, 1, 0, 2, 2, 2, 2, 2 ]</p>
+            <p>And again, just as we did in Block 1 we will perform the algorithm on digIndex. 
+                The result will be used again to map integers from the queues to the data array.
+                This is shown below in lines 51 - 53 of the radix function along with the resulting 
+                digIndex array after the operation.</p>
+            <div class = "block1">      
+                <div class = "code">
+<pre>
+51
+52
+53
+</pre>
+                </div>
+                <div class = "code">
+<pre>
+    for(var i = 0; i < digIndex.length - 1; i++){
+        digIndex[i + 1] += digIndex[i];
+    };
+</pre>
+                </div>
+            </div>
+            <p style = "text-indent:100px">digIndex = [ 1, 2, 4, 5, 5, 7, 9, 11, 13, 15 ]</p>
+            <p>Finally everything is ready and we can start the dequeue process out from the queues within 
+                the bin array in the exact same manner we did in the first block. Below in Table 2b-1 I have
+                constructed a T-chart just as before for clarity, the current state of our data array which will
+                be overwritten and the code to be executed(lines 54 - 58) is shown below.
+            </p>
+            <p style = "text-indent:100px">data = [ 30, 51, 61, 2, 22, 82, 53, 93, 73, 14, 86, 66, 97, 27, 78 ]</p>
+            <div class = "block1">      
+                <div class = "code">
+<pre>
+54
+55
+56
+57
+58
+</pre>
+                </div>
+                <div class = "code">
+<pre>
+    for(<i>var</i> i = bin.length - 1; i >= 0; i--){
+        while(!bin[i].isEmpty()){
+            data[--digIndex[i]] = bin[i].dequeue();
+        }
+    };
+</pre>
+                </div>
+            </div>
+            <div>
+                <img src = "images/table2b-2.png"/>
+                <p class = "fig"><b><i>Table 1b-1:</i></b><i>&nbsp;T-Chart</i>
+                </p>
+                <p>And finally we have the result of the data array after the second dequeue process shown below. The
+                    data array is now completely sorted</p>
+                <p>data = [ 2, 14, 22, 27, 30, 51, 53, 61, 66, 73, 78, 82, 86, 93, 97 ]</p>
+                <p>Looking again back at Table 1b-1, we can see clearly each iteration starting from the last queue in
+                    the bin array, the dequeue and mapping to the data array starting from last index in data array, overwriting the
+                    previous integer values with the sorted integer values based on the ten's digit. The process will continue to overwrite
+                    each integer value working its way up until index 0 of the data array. We had one queue which was empty(bin[4]) in 
+                    which no dequeueing had taken place, noted by "no execution". We can verify this by looking at figure 1b-2 in Section B1.
+                </p>
+                <p>Again, it is important to note how the digIndex array maps the integers to the appropriate data index using the algorithm within the while loop. This part of the code is probably the most difficult part of the radix code to visualize, but with the aid of T-charts which were provided will make it much easier to comprehend and visualize. In the following section I will provide a high
+                level summary of the operations involved for the lsd radix sort.
+                </p>
+            </div>
+        <div><center><div class = "botNavR"><a href = "radix_pg5.html"></a></div><div class = "botNav"><a href = "radix_pg7.html"></a></div>
+        </center></div>
+        </div>
+    </div>
+</body>
+</html>
+        

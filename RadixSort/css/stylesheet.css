@@ -1,0 +1,138 @@
+a 	{	
+	text-decoration: none;
+	color: green;
+}
+.botNav {
+	display: inline-block;
+	margin-left: 5px;
+
+}
+.botNavR {
+	display: inline-block;
+	margin-right: 5px;
+
+}
+.botNav a {
+	background-image: url(../images/arrowNext.png);
+	width: 42px;
+	height: 40px;
+	display: inline-block;
+	
+}
+.botNav a:hover {
+	background-image: url(../images/arrowNext2.png);
+	width: 42;
+	height: 40;
+	display: inline-block;
+	
+}
+.botNavR a {
+	background-image: url(../images/arrowBack.png);
+	width: 42px;
+	height: 40px;
+	display: inline-block;
+	
+}
+.botNavR a:hover {
+	background-image: url(../images/arrowBack2.png);
+	width: 42;
+	height: 40;
+	display: inline-block;
+	/*display: inline-block;
+	text-align: center;*/
+}
+
+
+body	{
+	margin: 0px;
+}
+.container	{
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: auto;
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: auto;
+}
+.bigtxt		{
+	width: 100%;			
+	margin: 0px;
+	padding: 0px;
+	font-family: Tahoma;
+	font-size: 24px;
+}
+.medtxt		{
+	font-family: Tahoma;
+	font-size: 20px;
+	color: #3d3f3d;
+}
+.block1		{
+	width: 650px;
+	padding: 5px;
+	margin-bottom: 20px;
+	border-radius: 6px;
+	border: 1px solid gray;
+	background-color: #e6e9ee;
+	box-shadow: 0 0 4px rgba(0,0,0,.20),0 5px 8px rgba(0,0,0,.30);
+}
+.nav {
+	width: 52px;
+	font-size: 16px;
+	background-color: white;
+	border: 1px solid gray;
+	border-radius: 5px;
+	box-shadow: 0 0 4px rgba(0,0,0,.24),0 5px 8px rgba(0,0,0,.25);
+}
+.top-section	{
+	margin-left: 0px;
+	padding: 10px;
+	display: block;
+	position: fixed;
+	background-image: url(../images/honycomb.png); z-index: 1; 
+	background-size: 100%; 
+	box-shadow: 0 0 4px rgba(0,0,0,.24),0 5px 8px rgba(0,0,0,.25);
+	width: 100%;
+	height: 35px;
+}
+#fig4		{	
+	border: 3px solid black;
+	padding: 0px;
+	width: 394px;
+	height: auto;
+}
+#botNav	{
+	text-align: center;
+}
+.default	{	
+	position: relative;
+	margin-top: 50px;
+	margin-bottom: 10px;
+	padding-top: 20px;
+	margin-right: 25px;
+	margin-left: 25px;
+	padding-left: 35px;
+	padding-right: 35px;
+	display: block;
+}
+p,li 		{
+	font-family: Tahoma;
+	font-size: 18px;
+	font-weight: normal;
+	width: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.code		{
+	display: inline-block;
+	vertical-align: top;
+	font-family: times;
+	font-size: 14px;
+	color: #424543;
+}
+.fig 		{
+	font-family: Tahoma;
+	font-size: 14px;
+	font-weight: normal;
+
+}

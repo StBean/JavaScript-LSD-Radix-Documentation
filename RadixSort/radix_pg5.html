@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset = "utf-8">
+	<title>Radix Sort LSD page 5</title>
+<link rel ="stylesheet" type = "text/css" href = "css/stylesheet.css"/>
+</head>
+<body>
+	<div class = "container">
+        <header class="top-section">
+            <div class = "bigtxt">Creating an LSD Radix Sort with <span style="color:#69c623">JavaScript</span>
+            </div>
+        </header>
+        <div class = "default">
+            <p class = "medtxt">Section B1&nbsp;<i>-&nbsp;<span font style="font-size:18px;">The Second Enqueue Pass</span></i></p>
+            <p>In the preceding sections we accomplished sorting our data array by the one's digit which 
+                is shown below in figure 1b-1 along with our radix function for reference as we continue 
+                with the next block of code which begins at line 44. This will be the second of two blocks 
+                as mentioned in the beginning of the article.
+            </p>
+            <p>Before we move on, I will briefly summarize what we have done up to this point. We first
+                passed in an unsorted array of 15 integers ranging in value from 0 - 99 as the data parameter. 
+                We then created 10 instances of the Queue class within the bin array. Next we performed a forward
+                sweep to enqueue the integers based on their one's digit from the data array into the queues
+                within the bin array. The next step was to populate our digIndex array with the values corresponding
+                to the number of integers stored within each queue(dataStore.length) and then performed an algorithm 
+                on that array which was then used as a mapping array(digIndex). With our digIndex array for mapping, we then 
+                dequeued the integers out of the queues within the bin array, starting from the last queue and ending 
+                at the first queue. The resultant data array is below:
+            </p>
+            <p>data = [ 30, 51, 61, 2, 22, 82, 53, 93, 73, 14, 86, 66, 97, 27, 78 ]</p>
+            <p>Now it is clear that the integers are indeed sorted based on their one's digit. To complete
+                the sort, we need to perform one more sort based on the ten's digit of the current integers in the data
+                array and then the process will be complete resulting in a sorted data array.</p>
+            <div class = "block1">		
+				<div class = "code">
+<pre>
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60	
+</pre>
+				</div>
+				<div class = "code">
+<pre>
+function radix(<i>data</i>){       
+    <i>var</i> bin = [];
+    <i>var</i> digIndex = [];
+    for(<i>var</i> i = 0; i < 10; i++){
+        bin[i] = new Queue();
+    };  // Block 1------------------------------
+    for(<i>var</i> i = 0; i < data.length; i++){
+        bin[data[i]%10].enqueue(data[i]);
+    };
+    for(<i>var</i> i = 0; i < bin.length; i++){
+        digIndex.push(bin[i].dataStore.length);
+    };
+    for(<i>var</i> i = 0; i < digIndex.length - 1; i++){
+        digIndex[i + 1] += digIndex[i];
+    };
+    for(<i>var</i> i = bin.length - 1; i >= 0; i--){
+        while(!bin[i].isEmpty()){
+            data[--digIndex[i]] = bin[i].dequeue();
+        }
+    };  // Block 2------------------------------
+    digIndex = [];  // re-initialize digIndex
+    for(<i>var</i> i = data.length - 1; i >= 0; i--){
+        bin[Math.floor(data[i]/10)%10].enqueue(data[i]);
+    };
+    for(<i>var</i> i = 0; i < bin.length; i++){
+        digIndex.push(bin[i].dataStore.length);
+    };
+    for(<i>var</i> i = 0; i < digIndex.length - 1; i++){
+        digIndex[i + 1] += digIndex[i];
+    };
+    for(<i>var</i> i = bin.length - 1; i >= 0; i--){
+        while(!bin[i].isEmpty()){
+            data[--digIndex[i]] = bin[i].dequeue();
+        }
+    };
+    return data;
+};
+</pre>
+				</div>
+			</div>
+			<p class = "fig"><b><i>Figure 1b:</i></b><i>&nbsp;Radix function reference.</i></p>
+			<p>On line 44 we start by re-initializing our digIndex array since we will be repeating the process
+				similar to lines 30 - 43(Block 1) of the radix function. The differences will be fairly minor. Up to this point
+				all the queues within the bin array are empty and ready for enqueueing. In lines 45 - 47 we enqueue the
+				integers in our data array based on the ten's digit. As you will notice this time the for loop starts
+				at the end of the array as opposed to before, it started from the front of the array. The algorithm for
+				enqueueing based on the ten's digit on line 46 is as follows:
+			</p>
+			<p style="text-indent:25px;">bin[<i><span style="color:purple;">Math</span></i>.<span style="color:purple;">floor</span>(data[i]/<span style="color:blue;">10</span>)<span style="color:red">%</span><span style="color:blue">10</span>].enqueue(data[i])
+            </p>
+
+			<p>That may look like a mouth full at first glance but we are simply dividing the data integer by 10, rounding
+            down the result using the  <i><span style="color:purple;">Math</span></i>.floor() function, and then like before
+            applying the&nbsp;<span style="color:red">%</span><span style="color:blue">10</span> operand to it. The result 
+            will be the bin index(queue location) in which we will be enqueueing the data integer to.
+			</p>
+			<p>As before we will go through all the iterations in the for loop and display them in a T-Chart in Table 1b-1.</p>
+            <div>
+                <img src = "images/table1b-1.png"/>
+                <p class = "fig"><b><i>Table 3:</i></b><i>&nbsp;T-Chart representing the for loop(lines 45 - 47) 
+                    which maps and enqueues the integers stored<br/>within the data array based on the ten's digit 
+                    into the queues within the bin array.</i>
+                </p>
+            </div>
+            <p>The resulting bin array of queues after the operation in Table 3 is shown below in the bin array. Let's 
+                take another moment to examine the bin array. As you can see the integers are sorted and stored into the
+                queues according to their ten's digit. Now lets take a look at the order in which they were enqueued. If you 
+                look at the dataStore array for queues containing more than one integer you will notice their order is from largest 
+                to smallest. When we dequeue the integers out we will be starting from the last queue in the bin array and since queue
+                data structure behavior is first in - first out, the largest integer will be dequeued out first. Up to this point
+                you should be able to mentally picture the dequeuing of integers out of their queues below and notice that it will result 
+                in a sorted list.</p>
+                <p>Since the next following operation will be identical to the operations done in section A, we will go over them very 
+                    briefly without extensive explanation in the remaining part of this section.</p>
+            <div class = "code">
+<pre>
+    [ { dataStore: [ 2 ],       // bin[0]
+        enqueue: [Function: enqueue],
+        dequeue: [Function: dequeue],
+        isEmpty: [Function: isEmpty] },
+      { dataStore: [ 14 ],      // bin[1]
+        enqueue: [Function: enqueue],
+        dequeue: [Function: dequeue],
+        isEmpty: [Function: isEmpty] },
+      { dataStore: [ 27, 22 ],  // bin[2]
+        enqueue: [Function: enqueue],
+        dequeue: [Function: dequeue],
+        isEmpty: [Function: isEmpty] },
+      { dataStore: [ 30 ],      // bin[3]
+        enqueue: [Function: enqueue],
+        dequeue: [Function: dequeue],
+        isEmpty: [Function: isEmpty] },
+      { dataStore: [],          // bin[4]
+        enqueue: [Function: enqueue],
+        dequeue: [Function: dequeue],
+        isEmpty: [Function: isEmpty] },
+      { dataStore: [ 53, 51 ],  // bin[5]
+        enqueue: [Function: enqueue],
+        dequeue: [Function: dequeue],
+        isEmpty: [Function: isEmpty] },
+      { dataStore: [ 66, 61 ],  // bin[6]
+        enqueue: [Function: enqueue],
+        dequeue: [Function: dequeue],
+        isEmpty: [Function: isEmpty] },
+      { dataStore: [ 78, 73 ],  // bin[7]
+        enqueue: [Function: enqueue],
+        dequeue: [Function: dequeue],
+        isEmpty: [Function: isEmpty] },
+      { dataStore: [ 86, 82 ],  // bin[8]
+        enqueue: [Function: enqueue],
+        dequeue: [Function: dequeue],
+        isEmpty: [Function: isEmpty] },
+      { dataStore: [ 97, 93 ],  // bin[9]
+        enqueue: [Function: enqueue],
+        dequeue: [Function: dequeue],
+        isEmpty: [Function: isEmpty] } ]
+</pre>
+            </div>
+            <p class = "fig"><b><i>Figure 2b:</i></b><i>&nbsp;The resulting bin array after the second enqueue sweep<br/>
+                based on the ten's digit of the integers contained in the data array.</i>
+            </p>
+        <div><center><div class = "botNavR"><a href = "radix_pg4.html"></a></div><div class = "botNav"><a href = "radix_pg6.html"></a></div>
+        </center></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset = "utf-8">
+	<title>Radix Sort LSD page 6</title>
+<link rel ="stylesheet" type = "text/css" href = "css/stylesheet.css"/>
+</head>
+<body>
+	<div class = "container">
+        <header class="top-section">
+            <div class = "bigtxt">Creating an LSD Radix Sort with <span style="color:#69c623">JavaScript</span>
+            </div>
+        </header>
+        <div class = "default">
+            <p class = "medtxt">Section B2&nbsp;<i>-&nbsp;<span font style="font-size:18px;">Conclusion</span></i></p>
+            <p>Below is a high level summary of what was done to construct an LSD radix sort:</p>
+            <ul>
+                <li>We first created a data structure, the queue class, which purpose was to:</li>
+                <ol>
+                    <li>Enqueue the data passed in from the radix function and store it in the dataStore array.</li>
+                    <li>Deqeueue the data from the dataStore array.</li>
+                    <li>Used the function isEmpty() to check if dataStore contained any data, and stop the dequeue
+                        process if dataStore contained no data.</li>
+                </ol>
+            </ul>
+            <ul>  
+                <li>Defined the LSD radix function which takes the parameter(data) which is an array of integers, 
+                    values ranging from 0 - 99.</li> 
+            </ul>
+            <ul>
+                <li>The radix function performed the operation below in following sequence:</li>
+                <ol>
+                    <li>Initialized the bin array to hold instances of the queue class.</li>
+                    <li>Initialized the digIndex array to be used for mapping integers from the queues to specific
+                        index positions in the data array.</li>
+                    <li>Created 10 instances of the queue class within the bin array.</li>
+                    <li>Starting from index position 0 of the data array, enqueued the integers into queues within 
+                        the bin array based on the algorithm for enqueuing integers based on their one's digit.</li>
+                    <li>Pushed the dataStore.length values of each queue in the bin array into the digIndex array.</li>
+                    <li>Applied the algorithm(digIndex[i + 1] += digIndex[i]) to the values contained in digIndex, starting
+                        form index position 1 of the digIndex array.</li>
+                    <li>Dequeued the integers out from the queues within the bin array to the data array, starting from 
+                        the last bin index position using digIndex array for mapping.</li>
+                    <li>Re-initialized the digIndex array.</li>
+                    <li>Starting from the last index position of the data array, enqueued the integers into queues within 
+                        the bin array based on the algorithm for enqueuing integers based on their ten's digit.</li>
+                    <li>Repeat steps 5 - 7 above.</li>
+                </ol>
+                </li>
+            </ul>
+            <p>Below is the complete code to implement and LSD Radix Sort of base 10. Feel free to copy the code into your 
+                favorite js editor, or online coding sandbox such as Eloquent JavaScript's <a href ="http://eloquentjavascript.net/code/">
+                Code Sandbox</a> and play around with it. See how how run times differ based on how large your array input is. Be sure 
+                that integer values must be in the range from 0 - 99. If you have a solid understanding of what was done
+                in this example, you will most likely easily be able to implement the code further for accepting larger
+                integers. For example you might try and modify the code to accept arrays of integers ranging from 0 - 999
+                and so on.
+            </p>
+            <div class = "block1">
+                <div class = "code">
+<pre>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23 
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60  
+</pre>
+                 </div>
+                 <div class = "code">
+<pre>
+function Queue(){       
+    this.dataStore = [];
+    this.enqueue   = enqueue;
+    this.dequeue   = dequeue;
+    this.isEmpty   = isEmpty;
+};
+function enqueue(<i>element</i>){
+    this.dataStore.push(element);
+};
+function dequeue(){
+    if(this.dataStore.length == 0){
+      return false;
+    } else {
+      return this.dataStore.shift();
+    }
+};
+function isEmpty(){
+    if(this.dataStore.length == 0){
+      return true;
+    } else {
+      return false;
+    }
+};
+function radix(<i>data</i>){       
+    <i>var</i> bin = [];
+    <i>var</i> digIndex = [];
+    for(<i>var</i> i = 0; i < 10; i++){
+        bin[i] = new Queue();
+    };  // Block 1------------------------------
+    for(<i>var</i> i = 0; i < data.length; i++){
+        bin[data[i]%10].enqueue(data[i]);
+    };
+    for(<i>var</i> i = 0; i < bin.length; i++){
+        digIndex.push(bin[i].dataStore.length);
+    };
+    for(<i>var</i> i = 0; i < digIndex.length - 1; i++){
+        digIndex[i + 1] += digIndex[i];
+    };
+    for(<i>var</i> i = bin.length - 1; i >= 0; i--){
+        while(!bin[i].isEmpty()){
+            data[--digIndex[i]] = bin[i].dequeue();
+        }
+    };  // Block 2------------------------------
+    digIndex = [];  // re-initialize digIndex
+    for(<i>var</i> i = data.length - 1; i >= 0; i--){
+        bin[Math.floor(data[i]/10)%10].enqueue(data[i]);
+    };
+    for(<i>var</i> i = 0; i < bin.length; i++){
+        digIndex.push(bin[i].dataStore.length);
+    };
+    for(<i>var</i> i = 0; i < digIndex.length - 1; i++){
+        digIndex[i + 1] += digIndex[i];
+    };
+    for(<i>var</i> i = bin.length - 1; i >= 0; i--){
+        while(!bin[i].isEmpty()){
+            data[--digIndex[i]] = bin[i].dequeue();
+        }
+    };
+    return data;
+};
+</pre>
+                </div>
+            </div>
+           <center><div class = "botNavR"><a href = "radix_pg6.html"></a></div></center> 
+       </div>
+	   </div>
+</body>
+</html>
+            
