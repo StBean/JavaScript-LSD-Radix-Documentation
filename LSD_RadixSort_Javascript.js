@@ -1,4 +1,4 @@
-// LSD Radix Sort Implented with Javascript
+// LSD Radix Sort Implemented with Javascript
 
 function Queue(){       
     this.dataStore = [];
