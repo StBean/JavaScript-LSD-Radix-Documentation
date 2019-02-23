@@ -87,8 +87,8 @@ body	{
 .top-section	{
 	margin-left: 0px;
 	padding: 10px;
-	display: static;
-	position: fixed;
+	display: fixed;
+	position: static;
 	background-image: url(../images/honycomb.png); z-index: 1; 
 	background-size: 100%; 
 	box-shadow: 0 0 4px rgba(0,0,0,.24),0 5px 8px rgba(0,0,0,.25);
