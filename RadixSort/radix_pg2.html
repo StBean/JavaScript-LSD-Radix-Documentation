@@ -24,7 +24,7 @@
                 first block of code which is broken down to 4 for loops, the last containing a nested while loop. 
                 This block of code implements the enqueue and dequeue operations for the first sweep and is basically 
                 the blueprint for the complete LSD Radix Sort code aside from some minor differences which we will soon see. 
-                The first sweep is based on the least significant digit - the one's digit. First take a look at lines 31 and 32 
+                The first sweep is based on the least significant digit - the one's digit. First take a look at lines 30 and 31 
                 in the code below for a moment and try to visualize what is happening and after I will step through each loop of code 
                 to show in detail the enqueue, mapping and dequeue processes.
             </p>
@@ -66,12 +66,12 @@
 </pre>
 			</div>
 		</div>
-			<p>In lines 30 - 32 of the code above, a for loop is initialized thats sets i = 0 and increments to 9. The first line in 
+			<p>In line 30 of the code above, a for loop is initialized thats sets i = 0 and increments to 9. The first line in 
                 the loop is very important. This is where the mapping and enqueue process from the unsorted data array of integers 
                 based on the one's digit occurs. The algorithm is located on line 31. Lets assign<i>
                 <span style ="color:blue">var</span></i>&nbsp;unsorted to an array of 15 unsorted integers, with values within 
                 the range of 0 - 99. This will be the data parameter passed into the radix function. We will go through each 
-                iteration below to see what is happening in lines 29 - 31 of the code. Listed in the table below are the 
+                iteration below to see what is happening in lines 30 and 31 of the code. Listed in the table below are the 
                 15 iterations (data.length = 15). I have included a reduced code in the 3rd column so it is clear which queue, noted
                 by it's bin index value, the integers contained in the data array are being mapped and enqueued to.
             </p> 
