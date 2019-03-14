@@ -27,7 +27,7 @@ function radix(data){
     var bin = [];
     var digIndex = [];
     for(var i = 0; i < 10; i++){
-        bin[i] = new Queue();
+        bin[i] = new Queue(); // create and store 10 instances of the Queue class in bin array
     };  // Block 1------------------------------
     for(var i = 0; i < data.length; i++){
         bin[data[i]%10].enqueue(data[i]);
