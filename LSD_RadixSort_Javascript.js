@@ -61,4 +61,4 @@ function radix(data){
     return data;
 };
 
-// Code created and written by StBean(Anthony Poblacion)
+// Code created and written by Anthony Poblacion
